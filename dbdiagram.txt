@@ -1,0 +1,39 @@
+Table users {
+  id int [pk, increment] 
+  email varchar [unique, not null] 
+  password varchar [not null] 
+  created_at datetime [default: `now()`] 
+  updated_at datetime [default: `now()`] 
+}
+
+Table columns {
+  id int [pk, increment] 
+  name varchar [not null] 
+  user_id int [ not null] 
+  created_at datetime [default: `now()`]
+  updated_at datetime [default: `now()`] 
+
+}
+
+Table cards {
+  id int [pk, increment] 
+  title varchar [not null] 
+  description text 
+  column_id int [not null] 
+  created_at datetime [default: `now()`] 
+  updated_at datetime [default: `now()`] 
+
+}
+
+Table comments {
+  id int [pk, increment] 
+  content text [not null] 
+  card_id int [not null] 
+  created_at datetime [default: `now()`] 
+  updated_at datetime [default: `now()`] 
+
+}
+
+Ref: columns.user_id > users.id
+Ref: cards.column_id > columns.id
+Ref: comments.card_id > cards.id
